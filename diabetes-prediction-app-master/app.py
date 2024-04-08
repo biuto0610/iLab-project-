@@ -2,42 +2,56 @@ import streamlit as st
 import joblib
 import pandas as pd
 from PIL import Image
-@st.cache_data
-def load(scaler_path, model_path):
-    sc = joblib.load(scaler_path)
-    model = joblib.load(model_path)
-    return sc , model
+from typing import Tuple
 
-def inference(row, scaler, model, feat_cols):
-    df = pd.DataFrame([row], columns = feat_cols)
-    X = scaler.transform(df)
-    features = pd.DataFrame(X, columns = feat_cols)
-    if (model.predict(features)==0):
-        return "This is a healthy person!"
-    else: return "This person has high chances of having diabetics!"
+st.set_page_config(layout="wide", page_title="Diabetes Prediction App", page_icon=":hospital:")
+
+@st.cache
+def load_model_and_scaler(scaler_path: str, model_path: str) -> Tuple:
+    try:
+        scaler = joblib.load(scaler_path)
+        model = joblib.load(model_path)
+        return scaler, model
+    except FileNotFoundError:
+        st.error("Model or scaler file not found. Please check the file paths.")
+        return None, None
+
+def make_inference(row: list, scaler, model, feature_columns: list) -> str:
+    try:
+        df = pd.DataFrame([row], columns=feature_columns)
+        scaled_features = scaler.transform(df)
+        prediction = model.predict(scaled_features)
+        return "This person has a high chance of having diabetes." if prediction == 1 else "This is a healthy person!"
+    except Exception as e:
+        st.error(f"An error occurred during inference: {e}")
+        return "Prediction error."
 
 st.title('Diabetes Prediction App')
-st.write('The data for the following example is originally from the National Institute of Diabetes and Digestive and Kidney Diseases and contains information on females at least 21 years old of Pima Indian heritage. This is a sample application and cannot be used as a substitute for real medical advice.')
-image = Image.open('C:/Users/user/Downloads/Pictures/diabetes-prediction-app-master/diabetes-prediction-app-master/data/diabetes_image.jpg')
-st.image(image, use_column_width=True)
-st.write('Please fill in the details of the person under consideration in the left sidebar and click on the button below!')
+st.markdown("""
+    Please note: This is a sample application and cannot be used as a substitute for real medical advice.
+""")
 
-age =           st.sidebar.number_input("Age in Years", 1, 150, 25, 1)
-pregnancies =   st.sidebar.number_input("Number of Pregnancies", 0, 20, 0, 1)
-glucose =       st.sidebar.slider("Glucose Level", 0, 200, 25, 1)
-skinthickness = st.sidebar.slider("Skin Thickness", 0, 99, 20, 1)
-bloodpressure = st.sidebar.slider('Blood Pressure', 0, 122, 69, 1)
-insulin =       st.sidebar.slider("Insulin", 0, 846, 79, 1)
-bmi =           st.sidebar.slider("BMI", 0.0, 67.1, 31.4, 0.1)
-dpf =           st.sidebar.slider("Diabetics Pedigree Function", 0.000, 2.420, 0.471, 0.001)
+st.sidebar.header("Input Patient Details")
+age = st.sidebar.number_input("Age in Years", 1, 150, 25, 1)
+pregnancies = st.sidebar.number_input("Number of Pregnancies", 0, 20, 0, 1)
+glucose = st.sidebar.slider("Glucose Level", 0, 200, 25, 1)
+skin_thickness = st.sidebar.slider("Skin Thickness", 0, 99, 20, 1)
+blood_pressure = st.sidebar.slider('Blood Pressure', 0, 122, 69, 1)
+insulin = st.sidebar.slider("Insulin", 0, 846, 79, 1)
+bmi = st.sidebar.slider("BMI", 0.0, 67.1, 31.4, 0.1)
+dpf = st.sidebar.slider("Diabetes Pedigree Function", 0.000, 2.420, 0.471, 0.001)
 
-row = [pregnancies, glucose, bloodpressure, skinthickness, insulin, bmi, dpf, age]
+if st.sidebar.button('Predict Health Status'):
+    feature_columns = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
+    scaler, model = load_model_and_scaler('scaler.joblib', 'model.joblib')
 
-if (st.button('Find Health Status')):
-    feat_cols = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
+    if scaler and model:
+        result = make_inference(row, scaler, model, feature_columns)
+        st.subheader("Prediction Result:")
+        st.write(result)
 
-    sc, model = load('C:\\Users\\user\\Downloads\\Pictures\\diabetes-prediction-app-master\\diabetes-prediction-app-master\\models\\scaler.joblib',
-                 'C:\\Users\\user\\Downloads\\Pictures\\diabetes-prediction-app-master\\diabetes-prediction-app-master\\models\\model.joblib')
+image = Image.open('C:/Users/user/Downloads/Pictures/diabetes-prediction-app-master/diabetes-prediction-app-master/data/diabetes_image.jpg') 
+st.image(image, caption="Diabetes Prediction", use_column_width=True)
 
-    result = inference(row, sc, model, feat_cols)
-    st.write(result)
+st.info("Note: This app is for educational purposes only and cannot be used as a substitute for professional medical advice.")
+
