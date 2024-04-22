@@ -50,7 +50,7 @@ if st.sidebar.button('Predict Health Status'):
         st.subheader("Prediction Result:")
         st.write(result)
 
-image = Image.open('C:/Users/user/Downloads/Pictures/diabetes-prediction-app-master/diabetes-prediction-app-master/data/diabetes_image.jpg') 
+image = Image.open('./diabetes-prediction-app-master/data/diabetes_image.jpg') 
 st.image(image, caption="Diabetes Prediction", use_column_width=True)
 
 st.info("Note: This app is for educational purposes only and cannot be used as a substitute for professional medical advice.")
