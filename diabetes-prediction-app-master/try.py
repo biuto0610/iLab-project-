@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 
-excel_file = 'recipie_data.xlsx'
+excel_file = './diabetes-prediction-app-master/data/recipie_data.xlsx'
 sheet_name = 'Sheet1'
 
 df = pd.read_excel(excel_file,
