@@ -43,4 +43,6 @@ class MultiApp:
             prediction.app()
         if app=='Recommended Recipes':
             recipe.app()
+        if app=='Treatment Options':
+            treatment.app()
     run()
