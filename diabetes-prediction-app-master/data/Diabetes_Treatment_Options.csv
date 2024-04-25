@@ -1,0 +1,17 @@
+Treatment Type,Action,Condition,Details
+General,Healthy Diet,Both Type 1 and Type 2,"Focus on a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. Limit processed foods and sugar."
+General,Regular Exercise,Both Type 1 and Type 2,At least 150 minutes of moderate activity or 75 minutes of vigorous activity each week.
+General,Weight Management,Both Type 1 and Type 2,Achieving and maintaining a healthy weight is crucial.
+General,Monitoring Blood Sugar,Both Type 1 and Type 2,Regular checks help manage diabetes effectively.
+Type 1 Diabetes,Insulin Therapy,Type 1 Diabetes,Required for managing blood sugar levels.
+Type 1 Diabetes,Carbohydrate Counting,Type 1 Diabetes,Keep track of carbs in each meal to manage blood sugar levels.
+Type 1 Diabetes,Regular Check-Ups,Type 1 Diabetes,Frequent medical exams to monitor and adjust treatments.
+Type 2 Diabetes,Oral Medications,Type 2 Diabetes,Various types help control blood sugar levels.
+Type 2 Diabetes,Insulin Therapy,Type 2 Diabetes,Needed by some patients to manage blood sugar levels.
+Type 2 Diabetes,Bariatric Surgery,Type 2 Diabetes Obesity,Weight-loss surgery can significantly improve outcomes.
+Type 2 Diabetes,CGM Systems,Type 2 Diabetes,Devices that offer real-time glucose level insights.
+Hyperglycemia,Immediate Action,Above 180 mg/dL,"Adjust medication, hydration, or exercise as advised by healthcare provider."
+Hyperglycemia,Seek Medical Attention,Frequent High Levels,Seek help if high levels are frequent or have severe symptoms.
+Hypoglycemia,Immediate Treatment,Below 70 mg/dL,"Consume 15-20 grams of fast-acting carbohydrates (e.g., glucose tablets, juice)."
+Hypoglycemia,Recheck Levels,Below 70 mg/dL,Recheck blood glucose after 15 minutes; repeat if still low.
+Hypoglycemia,Medical Review,Frequent Episodes,Discuss frequent episodes with a healthcare provider.
