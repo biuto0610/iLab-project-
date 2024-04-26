@@ -7,14 +7,14 @@ def app():
     st.title('Diabetes Prediction App')
     st.write('Diabetes is one of the fastest growing chronic life threatening diseases that have already affected 422 million people worldwide according to the report of World Health Organization (WHO), in 2018. Due to the presence of a relatively long asymptomatic phase, early detection of diabetes is always desired for a clinically meaningful outcome. Around 50% of all people suffering from diabetes are undiagnosed because of its long-term asymptomatic phase.')
     
-    st.image('./data/dataset-cover.png')
+    st.image('./diabetes-prediction-app-master/data/dataset-cover.png')
     st.write('Please answer the below questions and click on the Submit button to generate the prediction!')
     
-    def load_model():
+def load_model():
         # Assuming the model is pre-trained and saved as 'random_forest_model.pkl'
-        return joblib.load('./models/random_forest_model.pkl')
+        return joblib.load('./diabetes-prediction-app-master/models/random_forest_model.pkl')
 
-    def predict_diabetes(input_data, feature_columns):
+def predict_diabetes(input_data, feature_columns):
         # Convert input data to DataFrame
         input_df = pd.DataFrame([input_data])
         input_df = pd.get_dummies(input_df)
@@ -32,19 +32,18 @@ def app():
         probability = model.predict_proba(input_df)[0][1]  # [0][1] to get the probability for the positive class
         return probability
 
-    def main():
-        st.title('Diabetes Prediction App')
-        model = load_model()
+def main():
+    model = load_model()
 
         # Order of features as specified
-        feature_columns = [
+    feature_columns = [
             'age', 'polyuria', 'polydipsia', 'sudden_weight_loss', 'weakness',
             'polyphagia', 'genital_thrush', 'visual_blurring', 'itching',
             'irritability', 'delayed_healing', 'partial_paresis', 'muscle_stiffness',
             'alopecia', 'obesity', 'gender_Female', 'gender_Male'
         ]
 
-        with st.form("diabetes_prediction_form"):
+    with st.form("diabetes_prediction_form"):
             st.write("Please enter the following details:")
             age = st.number_input('Age', min_value=0, max_value=120, value=30)
             # Map 'Yes'/'No' answers to 1/0 and add inputs for all other features

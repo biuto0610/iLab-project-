@@ -21,7 +21,7 @@ st.set_page_config(
             layout="centered",
     )
 
-tab1, tab2, tab3 = st.tabs(["📈 Diabetes in Australia", "🗃 Diabetes Prediction","Recipe"])
+tab1, tab2, tab3, tab4 = st.tabs(["📈 Diabetes in Australia", "🗃 Diabetes Prediction","Recipe","treatment"])
 
 with tab1:
     st.write('In this tab, we will demonstrate facts about diabetes and diabetes overview in Australia, using different kinds of illustrations. Some examples include:')
@@ -204,6 +204,21 @@ with tab3:
 
     if __name__ == '__main__':
         main() 
+
+with tab4:
+    def app():
+        df = pd.read_csv('./diabetes-prediction-app-master/data/Diabetes_Treatment_Options.csv')
+
+        st.title('Diabetes Treatment Options')
+        
+        treatment_types = df['Treatment Type'].unique()
+        selected_treatment_type = st.selectbox('Select Treatment Type:', treatment_types)
+        
+        filtered_df = df[df['Treatment Type'] == selected_treatment_type]
+        
+        for index, row in filtered_df.iterrows():
+            with st.expander(f"{row['Action']} ({row['Condition']})"):
+                st.write(f"**Details:** {row['Details']}")
 
 # row = [pregnancies, glucose, bloodpressure, skinthickness, insulin, bmi, dpf, age]
 

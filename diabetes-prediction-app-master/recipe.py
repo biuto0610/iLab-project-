@@ -1,18 +1,19 @@
 import streamlit as st
 import pandas as pd
 
-def app():
-    excel_file = './data/recipie_data.xlsx'
-    sheet_name = 'Sheet1'
 
-    df = pd.read_excel(excel_file,
+
+excel_file = './diabetes-prediction-app-master/data/recipie_data.xlsx'
+sheet_name = 'Sheet1'
+
+df = pd.read_excel(excel_file,
                     sheet_name=sheet_name,
                     usecols='A:F')
 
 
-    def recipe_section():
-        st.header("Recipes")
-        if 'Recipies' in df.columns:
+def recipe_section():
+    st.header("Recipes")
+    if 'Recipies' in df.columns:
             # Get unique recipe names
             unique_recipes = df['Recipies'].unique()
             cols = st.columns(len(unique_recipes))  # Create columns for tiles
@@ -57,7 +58,7 @@ def app():
                 st.info("Please select a recipe tile.")
 
 
-    def display_recipe_details(df):
+def display_recipe_details(df):
         if not df.empty:
             for index, row in df.iterrows():
                 st.subheader(f"{row['Recipies']}")
@@ -71,10 +72,10 @@ def app():
             st.warning(f"No details found for selected recipe.")
 
 
-    def main():
+def main():
         st.title("Recipes App")
         recipe_section()
 
 
-    if __name__ == '__main__':
+if __name__ == '__main__':
         main() 

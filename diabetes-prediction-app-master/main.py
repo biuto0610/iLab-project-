@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
+
 import home, dashboard, prediction, recipe
 
 st.set_page_config(
@@ -41,8 +42,10 @@ class MultiApp:
             dashboard.app()
         if app=='Calculate Your Risk':
             prediction.app()
+            prediction.main()
+           
         if app=='Recommended Recipes':
-            recipe.app()
+            recipe.main()
         if app=='Treatment Options':
             treatment.app()
     run()
