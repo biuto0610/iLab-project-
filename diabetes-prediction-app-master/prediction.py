@@ -44,24 +44,22 @@ def main():
         ]
 
     with st.form("diabetes_prediction_form"):
-            st.write("Please enter the following details:")
-            age = st.number_input('Age', min_value=0, max_value=120, value=30)
-            # Map 'Yes'/'No' answers to 1/0 and add inputs for all other features
-            polyuria = st.radio('Polyuria', ['Yes', 'No'], format_func=lambda choice: choice)
-            polydipsia = st.radio('Polydipsia', ['Yes', 'No'], format_func=lambda choice: choice)
-            sudden_weight_loss = st.radio('Sudden Weight Loss', ['Yes', 'No'], format_func=lambda choice: choice)
-            weakness = st.radio('Weakness', ['Yes', 'No'], format_func=lambda choice: choice)
-            polyphagia = st.radio('Polyphagia', ['Yes', 'No'], format_func=lambda choice: choice)
-            genital_thrush = st.radio('Genital Thrush', ['Yes', 'No'], format_func=lambda choice: choice)
-            visual_blurring = st.radio('Visual Blurring', ['Yes', 'No'], format_func=lambda choice: choice)
-            itching = st.radio('Itching', ['Yes', 'No'], format_func=lambda choice: choice)
-            irritability = st.radio('Irritability', ['Yes', 'No'], format_func=lambda choice: choice)
-            delayed_healing = st.radio('Delayed Healing', ['Yes', 'No'], format_func=lambda choice: choice)
-            partial_paresis = st.radio('Partial Paresis', ['Yes', 'No'], format_func=lambda choice: choice)
-            muscle_stiffness = st.radio('Muscle Stiffness', ['Yes', 'No'], format_func=lambda choice: choice)
-            alopecia = st.radio('Alopecia', ['Yes', 'No'], format_func=lambda choice: choice)
-            obesity = st.radio('Obesity', ['Yes', 'No'], format_func=lambda choice: choice)
-            gender = st.selectbox('Gender', ['Female', 'Male'])
+            age = st.number_input('How old are you?', min_value=0, max_value=120, value=30)
+            polyuria = st.radio('Do you urinate more frequently than usual?', ['Yes', 'No'])
+            polydipsia = st.radio('Do you often feel very thirsty?', ['Yes', 'No'])
+            sudden_weight_loss = st.radio('Have you lost a lot of weight suddenly without trying?', ['Yes', 'No'])
+            weakness = st.radio('Do you often feel very weak?', ['Yes', 'No'])
+            polyphagia = st.radio('Do you often feel hungrier than usual?', ['Yes', 'No'])
+            genital_thrush = st.radio('Have you had fungal infections around the genital area?', ['Yes', 'No'])
+            visual_blurring = st.radio('Do you find your vision blurring occasionally?', ['Yes', 'No'])
+            itching = st.radio('Do you often feel itchy?', ['Yes', 'No'])
+            irritability = st.radio('Have you been feeling unusually irritable?', ['Yes', 'No'])
+            delayed_healing = st.radio('Do cuts or bruises heal slowly on your body?', ['Yes', 'No'])
+            partial_paresis = st.radio('Do you experience weakness in your limbs?', ['Yes', 'No'])
+            muscle_stiffness = st.radio('Do your muscles feel stiff regularly?', ['Yes', 'No'])
+            alopecia = st.radio('Have you noticed significant hair loss recently?', ['Yes', 'No'])
+            obesity = st.radio('Would you consider yourself to be obese?', ['Yes', 'No'])
+            gender = st.selectbox('What is your gender?', ['Female', 'Male'])
 
             # Create the input dictionary according to the specified feature order
             input_data = {
