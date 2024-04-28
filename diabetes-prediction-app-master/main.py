@@ -40,12 +40,11 @@ class MultiApp:
             home.app()
         if app=='Diabetes in Australia':
             dashboard.app()
+            dashboard.dashboard()
         if app=='Calculate Your Risk':
             prediction.app()
             prediction.main()
            
         if app=='Recommended Recipes':
-            recipe.main()
-        if app=='Treatment Options':
-            treatment.app()
+            recipe.gpt()
     run()
