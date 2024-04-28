@@ -4,7 +4,7 @@ def app():
     st.header('About the Team')
     st.image('./diabetes-prediction-app-master/data/group pic.png')
     st.header('About the Project')
-    st.write("""About Our App
+    st.write("""
 Welcome to Diabetes Prediction App, your proactive health companion. Our mission is to empower individuals with the tools they need to manage their health effectively, starting with the early detection of diabetes.
 
 Diabetes is a growing global concern, and early symptoms can often be subtle and easily overlooked. Our app uses advanced data science techniques to predict the probability of developing diabetes based on these early signs. By identifying risks early, we aim to provide users with the opportunity to make informed lifestyle changes and seek medical advice promptly.
