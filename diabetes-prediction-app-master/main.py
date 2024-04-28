@@ -46,7 +46,7 @@ class MultiApp:
             prediction.main()
            
         if app=='Recommended Recipes':
-            recipe.gpt()
+            recipe.main()
 
         if app=='DiabetesGPT':
             chatbot.bot()
