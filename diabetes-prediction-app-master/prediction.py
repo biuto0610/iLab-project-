@@ -86,6 +86,8 @@ def main():
             if submit_button:
                 probability = predict_diabetes(input_data, feature_columns)
                 st.write(f'The probability of diabetes is {probability:.2%}')
+                if probability > 0.5:
+                    st.warning('Your predicted probability of having diabetes is quite high. We recommend consulting a doctor for further evaluation and guidance.')
 
     if __name__ == "__main__":
         main()
