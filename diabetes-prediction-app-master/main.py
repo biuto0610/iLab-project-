@@ -2,11 +2,10 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 
-import about, dashboard, prediction, recipe
+import home, dashboard, prediction, recipe, chatbot
 
 st.set_page_config(
-    page_title='PreDiabAlert - Early Diabetes Risk Calculator',
-    page_icon='🩺'
+    page_title='PreDiabAlert - Early Diabetes Risk Calculator'
 )
 
 class MultiApp:
@@ -24,28 +23,32 @@ class MultiApp:
 
         with st.sidebar:
             app = option_menu(
-                menu_title='Content Menu',
-                options=['About', 'Diabetes in Australia', 'Calculate Your Risk', 'Recommended Recipes'],
+                menu_title='PreDiabAlert',
+                options=['Home', 'Diabetes in Australia', 'Calculate Your Risk', 'Recommended Recipes','DiabetesGPT'],
                 icons=['info-circle-fill', 'bar-chart-steps', 'calculator-fill', 'hand-thumbs-up-fill'],
                 menu_icon='house-fill',
                 default_index=1,
                 styles={
-                    'container': {'padding': '5!important', 'background-color': '#48d1cc'}, 
+                    'container': {'padding': '5!important', 'background-color': '#48d1cc'}, #D0CFCF
                     'icon': {'color': '#2A2D34', 'font-size': '23px'}, 
                     'nav-link': {'color': 'black', 'font-size': '20px'},
-                    'nav-link-selected': {'background-color': '#CCFF66'} 
+                    'nav-link-selected': {'background-color': '#CCFF66'} #F1D302
                 }
             )
 
-        if app=='About':
-            about.app()
-        # if app=='Diabetes in Australia':
-        #     dashboard.app()
-        #     dashboard.dashboard()
+        if app=='Home':
+            home.app()
+        if app=='Diabetes in Australia':
+            dashboard.app()
+            dashboard.dashboard()
         if app=='Calculate Your Risk':
             prediction.app()
             prediction.main()
            
-        # if app=='Recommended Recipes':
-        #     recipe.gpt()
+        if app=='Recommended Recipes':
+            recipe.gpt()
+
+        if app=='DiabetesGPT':
+            chatbot.bot()
+
     run()
