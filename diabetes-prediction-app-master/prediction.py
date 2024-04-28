@@ -2,13 +2,20 @@ import streamlit as st
 import joblib
 from joblib import load
 import pandas as pd
+from annotated_text import annotated_text, annotation
 
+def header(url):
+     st.markdown(f'<p style="background-color:white;color:#4DB5B5;font-size:40px;border-radius:2%;">{url}</p>', unsafe_allow_html=True)
+     
 def app():
-    st.title('Diabetes Prediction App')
-    st.write('Diabetes is one of the fastest growing chronic life threatening diseases that have already affected 422 million people worldwide according to the report of World Health Organization (WHO), in 2018. Due to the presence of a relatively long asymptomatic phase, early detection of diabetes is always desired for a clinically meaningful outcome. Around 50% of all people suffering from diabetes are undiagnosed because of its long-term asymptomatic phase.')
+    header("""Let's Calculate Your Risk""")
+    st.divider()
+    # write('Diabetes is one of the fastest growing chronic life threatening diseases that have already affected 422 million people worldwide according to the report of World Health Organization (WHO), in 2018. Due to the presence of a relatively long asymptomatic phase, early detection of diabetes is always desired for a clinically meaningful outcome. Around 50% of all people suffering from diabetes are undiagnosed because of its long-term asymptomatic phase.')
     
     st.image('./diabetes-prediction-app-master/data/dataset-cover.png')
-    st.write('Please answer the below questions and click on the Submit button to generate the prediction!')
+    st.write("""Data obtained from [Kaggle](https://www.kaggle.com/datasets/andrewmvd/early-diabetes-classification?resource=download)""")
+    annotated_text(
+    "To find out your risk of developing type 2 diabetes, complete the following 16 short questions. Click on the ", annotation("Calculate The Risk","", "#48d1cc", border="2px dashed black"), " button to generate the prediction.")
     
 def load_model():
         # Assuming the model is pre-trained and saved as 'random_forest_model.pkl'
@@ -46,20 +53,35 @@ def main():
     with st.form("diabetes_prediction_form"):
             age = st.number_input('How old are you?', min_value=0, max_value=120, value=30)
             polyuria = st.radio('Do you urinate more frequently than usual?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             polydipsia = st.radio('Do you often feel very thirsty?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             sudden_weight_loss = st.radio('Have you lost a lot of weight suddenly without trying?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             weakness = st.radio('Do you often feel very weak?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             polyphagia = st.radio('Do you often feel hungrier than usual?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             genital_thrush = st.radio('Have you had fungal infections around the genital area?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             visual_blurring = st.radio('Do you find your vision blurring occasionally?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             itching = st.radio('Do you often feel itchy?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             irritability = st.radio('Have you been feeling unusually irritable?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             delayed_healing = st.radio('Do cuts or bruises heal slowly on your body?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             partial_paresis = st.radio('Do you experience weakness in your limbs?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             muscle_stiffness = st.radio('Do your muscles feel stiff regularly?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             alopecia = st.radio('Have you noticed significant hair loss recently?', ['Yes', 'No'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
             obesity = st.radio('Would you consider yourself to be obese?', ['Yes', 'No'])
-            gender = st.selectbox('What is your gender?', ['Female', 'Male'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
+            gender = st.radio('What is your gender?', ['Female', 'Male'])
+            st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
             # Create the input dictionary according to the specified feature order
             input_data = {
