@@ -157,7 +157,7 @@ def dashboard():
         st.plotly_chart(fig)
 
         
-        st.image('data/chart.png', use_column_width=True)
+        st.image('./diabetes-prediction-app-master/data/chart.png', use_column_width=True)
 
 
 
