@@ -12,14 +12,12 @@ from streamlit_folium import st_folium
 
 def app():
     st.title("Diabetes in Australia")
-    st.write('In this tab, we will demonstrate facts about diabetes and diabetes overview in Australia, using different kinds of illustrations. Some examples include:')
-
 def dashboard():
-    col1, col2 = st.columns(2)
+   
 
-    # Row 1, Column 1
-    with col1:
+    
         
+        import plotly.express as px
 
         # Define the data
         data = {
@@ -42,35 +40,36 @@ def dashboard():
             ]
         }
 
-        # Create DataFrame
+        # Create a DataFrame from the data dictionary
         df = pd.DataFrame(data)
 
-        # Set the index
-        df.set_index("Age group", inplace=True)
+        # Streamlit app
+        st.write('Population Distribution by Age Group')
 
-        # Title
-        st.title("Number of Individuals by Age Group and Gender")
+        # Select the demographic group using a radio button
+        selected_group = st.radio('Select Group:', ['Males', 'Females', 'Persons'])
 
-        
-        # Create an interactive chart
-        selected_gender = st.selectbox("Select gender:", ["Males", "Females", "Persons"], key = 1)
+        # Prepare data for the pie chart based on the selected group
+        labels = df['Age group']
+        values = df[selected_group]
 
-        # Plot using Altair
-        chart = alt.Chart(df.reset_index()).mark_bar().encode(
-            x=alt.X("Age group", title="Age group"),
-            y=alt.Y(selected_gender, title="Number of Individuals"),
-            tooltip=["Age group", selected_gender]
-        ).properties(
-            title=f"Number of Individuals by Age Group ({selected_gender})"
-        ).interactive()
+        # Create an interactive pie chart using Plotly
+        fig = px.pie(
+            names=labels,
+            values=values,
+            title=f'Population Distribution by Age Group - {selected_group}',
+            labels={'names': 'Age Group', 'values': 'Count'},
+            color_discrete_sequence=px.colors.qualitative.Set3
+        )
 
-        # Display the chart
-        st.altair_chart(chart, use_container_width=True)
+        # Display the interactive pie chart
+        st.plotly_chart(fig, use_container_width=True)
+
     
         
 
     # Row 1, Column 2
-    with col2:
+    
         data = {
         "Age group": [
             "0–4", "5–9", "10–14", "15–19", "20–24", "25–29", "30–34", "35–39",
@@ -98,7 +97,7 @@ def dashboard():
         df.set_index("Age group", inplace=True)
 
         # Title
-        st.title("Diabetes hospitalisations by age and sex")
+        st.write("Diabetes hospitalisations by age and sex")
 
         
 
@@ -111,83 +110,55 @@ def dashboard():
             y=alt.Y(selected_gender, title="Number of Individuals"),
             tooltip=["Age group", selected_gender]
         ).properties(
-            title=f"Number of Individuals by Age Group ({selected_gender})"
+            title=f"Diabetes hospitalisations ({selected_gender})"
         ).interactive()
 
         # Display the chart
         st.altair_chart(chart, use_container_width=True)
 
     # Row 2, Column 1
-    with col1:
-        
-            # Define the data
-        data = {
-            "Age group": [
-                "0–49", "50–54", "55–59", "60–64", "65–69", "70–74", "75–79", "80–84", "85+"
-            ],
-            "Males": [273, 260, 377, 590, 881, 1405, 1717, 2007, 3393],
-            "Females": [186, 145, 197, 312, 475, 783, 981, 1414, 3869],
-            "Persons": [459, 405, 574, 902, 1356, 2188, 2698, 3421, 7262]
-        }
-
-        # Create DataFrame
-        df = pd.DataFrame(data)
-
-        # Set the index
-        df.set_index("Age group", inplace=True)
-
-        # Title
-        st.title("Interactive Pie Chart - Age Distribution by Gender")
-
-    # Interactive pie chart using Altair
-        selected_gender = st.selectbox("Select gender:", ["Males", "Females", "Persons"])
-
-        # Calculate percentages for the selected gender
-        total_selected_gender = df[selected_gender].sum()
-        df["Percentage"] = (df[selected_gender] / total_selected_gender) * 100
-
-        # Create Altair pie chart
-        chart = alt.Chart(df.reset_index()).mark_arc().encode(
-            theta=alt.Theta(field="Percentage", type="quantitative"),
-            color=alt.Color("Age group:N", legend=alt.Legend(title="Age group")),
-            tooltip=["Age group:N", "Percentage:Q"]
-        ).properties(
-            title=f"Age Distribution by {selected_gender}"
-        )
-
-        # Display the chart
-        st.altair_chart(chart, use_container_width=True)
+   
+            
 
     # Row 2, Column 2
-    with col2:    # Sample data (replace this with your actual data)
+      # Sample data (replace this with your actual data)
+      
+        import plotly.express as px
+
+        # Define the data (replace this with your actual dataset)
         data = {
-            'Region': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'],
-            'Latitude': [-33.8688, -37.8136, -27.4698, -31.9505, -34.9285],
-            'Longitude': [151.2093, 144.9631, 153.0251, 115.8605, 138.6007],
-            'Diabetes Prevalence (%)': [5.1, 4.9, 6.2, 4.5, 5.8]
+            'Year': [
+                2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
+                2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021
+            ],
+            'Males': [
+                5381, 5612, 6225, 6069, 6254, 6325, 6805, 7011, 7721, 7625,
+                7685, 8184, 8116, 8218, 8493, 9016, 9457, 9876, 9825, 10010, 10256, 10903
+            ],
+            'Females': [
+                4749, 4713, 5242, 5331, 5481, 5539, 6044, 6127, 6718, 6673,
+                6664, 6928, 6984, 6979, 7341, 7543, 7651, 7892, 7620, 7789, 7766, 8363
+            ],
+            'Persons': [
+                10130, 10325, 11467, 11400, 11735, 11864, 12849, 13138, 14439, 14298,
+                14349, 15112, 15100, 15197, 15834, 16559, 17108, 17768, 17445, 17799, 18022, 19266
+            ]
         }
 
-        # Create a DataFrame from the sample data
         df = pd.DataFrame(data)
 
-        # Set up Streamlit app
-        st.title('Diabetes Prevalence Map in Australia')
+        # Streamlit app
+        st.write('Diabetes Prevalence Over Time (2000-2021)')
 
-        # Create a base map centered around Australia
-        map_center = [-25.2744, 133.7751]  # Coordinates for the center of Australia
-        mymap = folium.Map(location=map_center, zoom_start=4)
+    
 
-        # Add markers to the map for each region
-        marker_cluster = MarkerCluster().add_to(mymap)
+        # Create an interactive time series chart using Plotly
+        fig = px.line(df, x='Year', y=['Males', 'Females', 'Persons'], title='Diabetes Prevalence Over Time (2000-2021)')
+        st.plotly_chart(fig)
 
-        for i, row in df.iterrows():
-            folium.Marker(
-                location=[row['Latitude'], row['Longitude']],
-                popup=f"<strong>{row['Region']}</strong><br>Diabetes Prevalence: {row['Diabetes Prevalence (%)']}%",
-                icon=folium.Icon(color='red', icon='info-sign')
-            ).add_to(marker_cluster)
+        
+        st.image('data/chart.png', use_column_width=True)
 
-        # Display the map using Streamlit
-        st_folium(mymap, width=725, height=500)
+
 
 
