@@ -3,16 +3,17 @@ import pandas as pd
 import openai
 from streamlit_chat import message
 
-
-excel_file = './diabetes-prediction-app-master/data/recipie_data.xlsx'
+def header(url):
+     st.markdown(f'<p style="background-color:white;color:#4DB5B5;font-size:40px;border-radius:2%;">{url}</p>', unsafe_allow_html=True)
+excel_file = './diabetes-prediction-app-master/data/train.xlsx'
 sheet_name = 'Sheet1'
 
 df = pd.read_excel(excel_file,
                     sheet_name=sheet_name,
-                    usecols='A:F')
+                    usecols='A:G')
     
 def recipe_section():
-    st.header("Recipes")
+    st.header("Recipes for healthy meal and snack")
     if 'Recipies' in df.columns:
             # Get unique recipe names
             unique_recipes = df['Recipies'].unique()
@@ -59,20 +60,22 @@ def recipe_section():
 
 
 def display_recipe_details(df):
-        if not df.empty:
+    if not df.empty:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(df["Image"].tolist(), width=250)
+        with col2:
             for index, row in df.iterrows():
-                st.subheader(f"{row['Recipies']}")
-                st.write("Details:")
-                st.text(row["Details"])
-                st.write("Ingredients:")
-                st.text(row["Ingredients"])
-                st.write("Instructions:")
-                st.text(row["Method"])
-        else:
-            st.warning(f"No details found for selected recipe.")
+                st.subheader("Details:")
+                st.write(row["Details"])
+        st.subheader("Ingredients:")
+        st.text(row["Ingredients"])
+        st.subheader("Instructions:")
+        st.write(row["Method"])
+    else:
+        st.warning(f"No details found for selected recipe.")
 
 def main():
-        st.title("Recipes App")
         recipe_section()
 
 

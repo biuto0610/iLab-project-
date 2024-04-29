@@ -107,9 +107,15 @@ def main():
             submit_button = st.form_submit_button("Calculate Your Risk")
             if submit_button:
                 probability = predict_diabetes(input_data, feature_columns)
-                st.write(f'The probability of diabetes is {probability:.2%}')
-                if probability > 0.5:
-                    st.warning('Your predicted probability of having diabetes is quite high. We recommend consulting a doctor for further evaluation and guidance.')
+                if probability > 0.75:
+                    risk_level = "High"
+                    st.error(f'Your risk of diabetes is {risk_level}. The probability is {probability:.2%}. We recommend consulting a doctor for further evaluation and guidance.')
+                elif probability > 0.25:
+                    risk_level = "Medium"
+                    st.warning(f'Your risk of diabetes is {risk_level}. The probability is {probability:.2%}. Consider lifestyle changes and consult a healthcare professional for guidance.')
+                else:
+                    risk_level = "Low"
+                    st.success(f'Your risk of diabetes is {risk_level}. The probability is {probability:.2%}. Continue maintaining a healthy lifestyle.')
 
     if __name__ == "__main__":
         main()

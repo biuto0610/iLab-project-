@@ -6,7 +6,7 @@ openai.api_key = "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"
 
 def  bot():
         def api_calling(prompt):
-                completions = openai.Completion.create(
+                completions = openai.completions.create(
                         
                         model="gpt-3.5-turbo-instruct",
                         prompt=prompt,

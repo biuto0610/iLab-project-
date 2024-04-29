@@ -42,7 +42,6 @@ with st.sidebar:
         default_index=0  # Select the first option by default
     )
 def main():
-    st.title("Recipes App")
     display_recipes(selected_meal, df)  
     
 if __name__ == '__main__':
