@@ -104,7 +104,7 @@ def main():
                 'gender_Male': 1 if gender == 'Male' else 0,
             }
 
-            submit_button = st.form_submit_button("Predict Diabetes")
+            submit_button = st.form_submit_button("Calculate Your Risk")
             if submit_button:
                 probability = predict_diabetes(input_data, feature_columns)
                 st.write(f'The probability of diabetes is {probability:.2%}')
