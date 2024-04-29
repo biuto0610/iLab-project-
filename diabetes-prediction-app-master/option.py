@@ -3,7 +3,7 @@ import pandas as pd
 from streamlit_option_menu import option_menu
 
 # Assuming 'recipie_data.xlsx' exists with columns 'Recipies' and 'Meal'
-excel_file = 'train.xlsx'
+excel_file = './diabetes-prediction-app-master/data/train.xlsx'
 
 sheet_name = 'Sheet1'
 df = pd.read_excel(excel_file, sheet_name=sheet_name, 
@@ -41,5 +41,9 @@ with st.sidebar:
         options=df['Recipies'].unique().tolist(),  # Use unique meals from DataFrame
         default_index=0  # Select the first option by default
     )
-
-display_recipes(selected_meal, df.copy())  
+def main():
+    st.title("Recipes App")
+    display_recipes(selected_meal, df)  
+    
+if __name__ == '__main__':
+    main() 

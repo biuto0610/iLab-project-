@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 
-import home, dashboard, prediction, recipe, chatbot
+import home, dashboard, prediction, chatbot,option
 
 st.set_page_config(
     page_title='PreDiabAlert - Early Diabetes Risk Calculator'
@@ -46,8 +46,7 @@ class MultiApp:
             prediction.main()
            
         if app=='Recommended Recipes':
-            recipe.main()
-
+            option.main()   
         if app=='DiabetesGPT':
             chatbot.bot()
 
